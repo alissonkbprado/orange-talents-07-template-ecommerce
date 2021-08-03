@@ -42,10 +42,6 @@ public class Usuario {
         this.senha = senha.getSenha();
     }
 
-//    private String geraHash(String senhaLimpa){
-//        return new BCryptPasswordEncoder().encode(senhaLimpa.trim());
-//    }
-
     public String getEmail() {
         return email;
     }

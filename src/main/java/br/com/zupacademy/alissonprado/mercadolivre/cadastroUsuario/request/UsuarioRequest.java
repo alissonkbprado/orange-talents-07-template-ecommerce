@@ -28,3 +28,4 @@ public class UsuarioRequest {
         return new Usuario(this.login.trim(), Senha.encoda(this.senha.trim()));
     }
 }
+
