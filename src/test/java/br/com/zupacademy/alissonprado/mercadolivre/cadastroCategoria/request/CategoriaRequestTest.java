@@ -22,7 +22,7 @@ class CategoriaRequestTest {
 
         Categoria categoria = categoriaRequest.toModel();
 
-        assertEquals(null, categoria.getCategoriaMae());
+        assertEquals(null, categoria.getCategoriaMae().get());
     }
 
     @Test
@@ -31,7 +31,7 @@ class CategoriaRequestTest {
 
         Categoria categoria = categoriaRequest.toModel();
 
-        assertNotEquals(null, categoria.getCategoriaMae());
+        assertNotEquals(null, categoria.getCategoriaMae().get());
     }
 
     @Test
