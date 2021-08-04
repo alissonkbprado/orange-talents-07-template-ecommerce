@@ -1,5 +1,7 @@
 package br.com.zupacademy.alissonprado.mercadolivre.validacao;
 
+import org.springframework.util.Assert;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -27,6 +29,8 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
         query.setParameter("value", value);
 
         List<?> list = query.getResultList();
+
+        Assert.state(list.size() <= 1, "Foi encontrado mains de 1 " + klass.getName() + " com o atributo " + domainAttribute);
 
         return list.isEmpty();
     }
