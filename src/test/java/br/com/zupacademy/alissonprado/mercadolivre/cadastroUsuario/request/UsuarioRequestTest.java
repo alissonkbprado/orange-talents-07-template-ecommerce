@@ -9,7 +9,7 @@ class UsuarioRequestTest {
 
     @Test
     public void deveRetornarUsuarioAoChamarMetodoToModel(){
-        UsuarioRequest usuarioRequest = new UsuarioRequest("luke@jedi.com", "yoda");
+        UsuarioRequest usuarioRequest = new UsuarioRequest("luke@jedi.com", "yoda1234");
 
         Usuario usuario = usuarioRequest.toModel();
 
