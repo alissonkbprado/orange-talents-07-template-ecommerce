@@ -26,6 +26,7 @@ public class Categoria {
     }
 
     public Categoria(Long id) {
+        Assert.notNull(id, "Id de Categoria não pode ser nulo.");
         this.id = id;
     }
 

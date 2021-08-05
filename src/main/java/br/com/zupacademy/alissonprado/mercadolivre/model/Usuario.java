@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,6 +37,9 @@ public class Usuario implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfilList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "usuario")
+    private List<Produto> produtoList;
+
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired = true;
@@ -44,6 +48,15 @@ public class Usuario implements UserDetails {
 
     @Deprecated
     public Usuario() {
+    }
+
+    /**
+     *
+     * @param id NotNull Unique
+     */
+    public Usuario(@NotNull Long id) {
+        Assert.notNull(id, "Id de Usuario não pode ser nulo.");
+        this.id = id;
     }
 
     /**

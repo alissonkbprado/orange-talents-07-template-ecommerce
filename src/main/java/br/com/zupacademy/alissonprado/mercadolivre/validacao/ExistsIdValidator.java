@@ -28,8 +28,11 @@ public class ExistsIdValidator implements ConstraintValidator<ExistsId, Object> 
         if(optional && value == null)
             return true;
 
+        if(!optional && value == null)
+            return false;
+
         if(!value.toString().matches("[0-9]*"))
-            return true;
+            return false;
 
         Query query = manager.createQuery("SELECT 1 FROM " + klass.getSimpleName() + " WHERE " + idName + " = :value");
         query.setParameter("value", Long.parseLong(value.toString()));

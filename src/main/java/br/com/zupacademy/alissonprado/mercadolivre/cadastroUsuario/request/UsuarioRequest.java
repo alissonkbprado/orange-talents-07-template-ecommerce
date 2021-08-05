@@ -12,20 +12,20 @@ public class UsuarioRequest {
 
     @NotBlank @Email
     @UniqueValue(domainClass = Usuario.class, fieldName = "email")
-    private String login;
+    private String email;
 
     @NotBlank @Size(min = 6, message = "Deve possuir tamanho mínimo de 6.")
     private String senha;
 
     public UsuarioRequest(
-            @NotBlank @Email String login,
+            @NotBlank @Email String email,
             @NotBlank @Size(min = 6) String senha) {
-        this.login = login;
+        this.email = email;
         this.senha = senha;
     }
 
     public Usuario toModel(){
-        return new Usuario(this.login.trim(), Senha.encoda(this.senha.trim()));
+        return new Usuario(this.email.trim(), Senha.encoda(this.senha.trim()));
     }
 }
 
