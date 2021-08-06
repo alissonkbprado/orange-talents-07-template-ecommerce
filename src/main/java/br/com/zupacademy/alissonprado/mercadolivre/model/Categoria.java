@@ -63,7 +63,7 @@ public class Categoria {
      *
      * @return Pode ser Null
      */
-    public Optional<Categoria> getCategoriaMae() {
+    public Optional<Categoria> getCategoriaMaeOptional() {
         return Optional.ofNullable(categoriaMae);
     }
 }

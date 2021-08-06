@@ -10,6 +10,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,8 +49,13 @@ public class Produto {
     @ManyToOne
     private Categoria categoria;
 
-    @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "produto_id")
     private Set<CaracteristicaProduto> caracteristicaProdutoHashSet = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "produto_id")
+    private List<ImagemProduto> imagemProdutoList = new ArrayList<>();
 
     @Deprecated
     public Produto() {
@@ -97,11 +103,6 @@ public class Produto {
         this.categoria = categoria;
         this.usuario= usuario;
         this.caracteristicaProdutoHashSet.addAll(caracteristicaProdutoHashSet);
-
-//        Set<CaracteristicaProduto> caracteristicaProdutoStream = caracteristicaProdutoHashSet.stream().map(caracteristicaProduto -> caracteristicaProduto.toModel(this)).collect(Collectors.toSet());
-
-
-
     }
 
     public Long getId() {

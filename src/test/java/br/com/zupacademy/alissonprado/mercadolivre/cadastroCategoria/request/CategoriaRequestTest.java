@@ -5,11 +5,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CategoriaRequestTest {
 
@@ -22,7 +22,7 @@ class CategoriaRequestTest {
 
         Categoria categoria = categoriaRequest.toModel();
 
-        assertEquals(null, categoria.getCategoriaMae().get());
+        assertTrue(categoria.getCategoriaMaeOptional().isEmpty());
     }
 
     @Test
@@ -31,7 +31,7 @@ class CategoriaRequestTest {
 
         Categoria categoria = categoriaRequest.toModel();
 
-        assertNotEquals(null, categoria.getCategoriaMae().get());
+        assertNotEquals(null, categoria.getCategoriaMaeOptional().get());
     }
 
     @Test

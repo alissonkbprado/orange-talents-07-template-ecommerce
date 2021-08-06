@@ -5,12 +5,14 @@ import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,15 @@ public class ErroDeValidacaoHandler {
         String mensagem = "O valor informado (" + exception.getValue().toString() + ") não é do tipo requerido ou está em formato inválido.";
 
         return new ErroDeFormularioResponse(exception.getValue().toString(), mensagem);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
+    public ErroDeFormularioResponse handleMaxSizeException(MaxUploadSizeExceededException exception) {
+
+        String mensagem = "Uma ou mais imagens excede o tamanho máximo permitido de 500KB, ou o máximo permitido para todas as imagens de 5120KB. " + exception.getLocalizedMessage();
+
+        return new ErroDeFormularioResponse("imagens", mensagem);
     }
 
     private List<ErroDeFormularioResponse> buildValidationErrors(List<FieldError> fieldErrors, List<ErroDeFormularioResponse> responseList) {

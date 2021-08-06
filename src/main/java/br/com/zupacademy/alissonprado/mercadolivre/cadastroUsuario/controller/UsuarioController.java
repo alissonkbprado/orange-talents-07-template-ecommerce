@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
@@ -23,7 +22,6 @@ public class UsuarioController {
     }
 
     @PostMapping
-    @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid UsuarioRequest usuarioRequest){
         Usuario usuario = usuarioRequest.toModel();
 

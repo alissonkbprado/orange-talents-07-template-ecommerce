@@ -25,6 +25,7 @@ public class UsuarioRequest {
     }
 
     public Usuario toModel(){
+
         return new Usuario(this.email.trim(), Senha.encoda(this.senha.trim()));
     }
 }

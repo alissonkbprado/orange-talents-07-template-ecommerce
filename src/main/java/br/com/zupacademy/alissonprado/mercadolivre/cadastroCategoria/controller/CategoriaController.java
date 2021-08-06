@@ -23,7 +23,6 @@ public class CategoriaController {
     }
 
     @PostMapping
-    @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid CategoriaRequest categoriaRequest){
         Categoria categoria = categoriaRequest.toModel();
 

@@ -69,17 +69,4 @@ public class CaracteristicaProduto {
         this.descricao = caracteristicaRequest.getDescricao();
         this.grupoCaracteristicaProduto = new GrupoCaracteristicaProduto(caracteristicaRequest.getIdGrupoCaracteristica());
     }
-
-    /**
-     * Utilizado apenas pelo controller de cadastro de Produtos para adicionar Caracteristica ao Produto
-     * @param produto
-     */
-    public void setProduto(Produto produto) {
-        Assert.notNull(produto, "Produto não pode ser nulo.");
-        this.produto = produto;
-    }
-
-//    public CaracteristicaProduto toModel(Produto produto) {
-//        return new CaracteristicaProduto(this.nome, this.descricao, produto, this.grupoCaracteristicaProduto);
-//    }
 }
