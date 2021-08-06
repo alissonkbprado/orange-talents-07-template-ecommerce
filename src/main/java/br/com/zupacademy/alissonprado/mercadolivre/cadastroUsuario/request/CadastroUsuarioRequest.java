@@ -8,7 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class UsuarioRequest {
+public class CadastroUsuarioRequest {
 
     @NotBlank @Email
     @UniqueValue(domainClass = Usuario.class, fieldName = "email")
@@ -17,7 +17,7 @@ public class UsuarioRequest {
     @NotBlank @Size(min = 6, message = "Deve possuir tamanho mínimo de 6.")
     private String senha;
 
-    public UsuarioRequest(
+    public CadastroUsuarioRequest(
             @NotBlank @Email String email,
             @NotBlank @Size(min = 6) String senha) {
         this.email = email;

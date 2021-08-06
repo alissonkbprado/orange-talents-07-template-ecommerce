@@ -19,17 +19,17 @@ public class CaracteristicaRequest {
     private Long idGrupoCaracteristica;
 
     public CaracteristicaRequest(String nome, String descricao, Long idGrupoCaracteristica) {
-        this.nome = nome;
-        this.descricao = descricao;
+        this.nome = nome.trim();
+        this.descricao = descricao.trim();
         this.idGrupoCaracteristica = idGrupoCaracteristica;
     }
 
     public String getNome() {
-        return nome;
+        return nome.trim();
     }
 
     public String getDescricao() {
-        return descricao;
+        return descricao.trim();
     }
 
     public Long getIdGrupoCaracteristica() {

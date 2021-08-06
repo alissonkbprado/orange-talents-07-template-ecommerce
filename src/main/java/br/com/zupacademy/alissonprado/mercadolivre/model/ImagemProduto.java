@@ -1,5 +1,6 @@
 package br.com.zupacademy.alissonprado.mercadolivre.model;
 
+import org.hibernate.validator.constraints.URL;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -15,12 +16,15 @@ public class ImagemProduto {
     @NotBlank
     private String nome;
 
-    private String imagemUrl;
+    private String url;
 
     @ManyToOne
     private Produto produto;
 
-
+    /**
+     * Não utilizar.
+     * Criado por exigencia da JPA
+     */
     @Deprecated
     public ImagemProduto(Long id) {
         this.id = id;
@@ -29,15 +33,15 @@ public class ImagemProduto {
     /**
      *
      * @param nome NotBlank
-     * @param produtoUsuarioLocado NotNull, Produto deve pertencer ao Usuario logado.
+     * @param produtoUsuarioLogado NotNull, Produto deve pertencer ao Usuario logado.
      */
-    public ImagemProduto(@NotBlank String nome, String imagemUrlm, @NotNull Produto produtoUsuarioLocado) {
+    public ImagemProduto(@NotBlank String nome, @NotBlank @URL String url, @NotNull Produto produtoUsuarioLogado) {
         Assert.hasText(nome, "Você deve passar o nome da imagem.");
-        Assert.hasText(imagemUrlm, "Você deve passar a url da imagem do produto");
-        Assert.notNull(produtoUsuarioLocado, "O Produto não pode ser nulo");
+        Assert.hasText(url, "Você deve passar a url da imagem do produto");
+        Assert.notNull(produtoUsuarioLogado, "O Produto não pode ser nulo");
         this.nome = nome;
-        this.imagemUrl = imagemUrlm;
-        this.produto = produtoUsuarioLocado;
+        this.url = url;
+        this.produto = produtoUsuarioLogado;
     }
 
     public Long getId() {

@@ -1,6 +1,6 @@
 package br.com.zupacademy.alissonprado.mercadolivre.cadastroUsuario.controller;
 
-import br.com.zupacademy.alissonprado.mercadolivre.cadastroUsuario.request.UsuarioRequest;
+import br.com.zupacademy.alissonprado.mercadolivre.cadastroUsuario.request.CadastroUsuarioRequest;
 import br.com.zupacademy.alissonprado.mercadolivre.model.Usuario;
 import br.com.zupacademy.alissonprado.mercadolivre.repository.UsuarioRepository;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +22,8 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody @Valid UsuarioRequest usuarioRequest){
-        Usuario usuario = usuarioRequest.toModel();
+    public ResponseEntity<?> cadastrar(@RequestBody @Valid CadastroUsuarioRequest cadastroUsuarioRequest){
+        Usuario usuario = cadastroUsuarioRequest.toModel();
 
         usuarioRepository.save(usuario);
 

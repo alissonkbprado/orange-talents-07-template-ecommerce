@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class UsuarioRequestTest {
+class CadastroUsuarioRequestTest {
 
     @Test
     public void deveRetornarUsuarioAoChamarMetodoToModel(){
-        UsuarioRequest usuarioRequest = new UsuarioRequest("luke@jedi.com", "yoda1234");
+        CadastroUsuarioRequest cadastroUsuarioRequest = new CadastroUsuarioRequest("luke@jedi.com", "yoda1234");
 
-        Usuario usuario = usuarioRequest.toModel();
+        Usuario usuario = cadastroUsuarioRequest.toModel();
 
         assertEquals("luke@jedi.com", usuario.getEmail());
     }

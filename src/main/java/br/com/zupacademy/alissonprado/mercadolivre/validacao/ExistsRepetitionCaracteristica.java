@@ -4,11 +4,11 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
-@Constraint(validatedBy = ExistsRepetitionCategotiaValidator.class)
+@Constraint(validatedBy = ExistsRepetitionCaracteristicaValidator.class)
 @Documented
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ExistsRepetitionCategoria {
+public @interface ExistsRepetitionCaracteristica {
 
     String message() default ("A lista não pode pode ter itens repetidos.");
 

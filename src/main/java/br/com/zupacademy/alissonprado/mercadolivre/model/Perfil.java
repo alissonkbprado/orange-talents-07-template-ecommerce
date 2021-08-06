@@ -14,6 +14,10 @@ public class Perfil implements GrantedAuthority {
     private Long id;
     private String nome;
 
+    /**
+     * Não utilizar.
+     * Criado por exigencia da JPA
+     */
     @Deprecated
     public Perfil() {
     }

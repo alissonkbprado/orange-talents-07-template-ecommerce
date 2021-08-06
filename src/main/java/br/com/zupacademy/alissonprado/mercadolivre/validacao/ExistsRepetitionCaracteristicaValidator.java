@@ -8,12 +8,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ExistsRepetitionCategotiaValidator implements ConstraintValidator<ExistsRepetitionCategoria, Object> {
+public class ExistsRepetitionCaracteristicaValidator implements ConstraintValidator<ExistsRepetitionCaracteristica, Object> {
 
     private boolean optional;
 
     @Override
-    public void initialize(ExistsRepetitionCategoria params) {
+    public void initialize(ExistsRepetitionCaracteristica params) {
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ExistsRepetitionCategotiaValidator implements ConstraintValidator<E
         Set<String> nomes = new HashSet<>();
 
         caracteristicaRequestList.forEach( c -> {
-            nomes.add(c.getNome() + c.getIdGrupoCaracteristica());
+            nomes.add(c.getNome().toLowerCase().trim() + c.getIdGrupoCaracteristica());
         });
 
         return (caracteristicaRequestList.size() == nomes.size());

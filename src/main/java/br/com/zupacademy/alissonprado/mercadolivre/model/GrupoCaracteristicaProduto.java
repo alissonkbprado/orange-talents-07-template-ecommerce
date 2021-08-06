@@ -15,6 +15,10 @@ public class GrupoCaracteristicaProduto {
     @Column(nullable = false, unique = true)
     private String nome;
 
+    /**
+     * Não utilizar.
+     * Criado por exigencia da JPA
+     */
     @Deprecated
     public GrupoCaracteristicaProduto() {
     }

@@ -33,7 +33,3 @@ public class EnviaImagemAmazonService implements EnviaImagemService{
         return myRandom.substring(0,20);
     }
 }
-
-
-
-

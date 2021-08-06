@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -42,6 +43,7 @@ public class CadastroImagemProdutoController {
 
         if (produtoNaoEhDoUsuarioLogado(imagensRequest.getIdProduto(), usuario.getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("O Produto indicado não pertence ao Usuario logado.");
+//        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "O Produto indicado não pertence ao Usuario logado.");
 
         /**
          * Depois de persistir o objeto e gerar o id,

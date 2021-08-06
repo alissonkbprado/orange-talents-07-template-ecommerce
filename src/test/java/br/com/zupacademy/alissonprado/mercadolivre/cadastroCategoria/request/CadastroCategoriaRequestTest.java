@@ -11,25 +11,25 @@ import javax.persistence.EntityManager;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CategoriaRequestTest {
+class CadastroCategoriaRequestTest {
 
     @Autowired
-    CategoriaRequest categoriaRequest;
+    CadastroCategoriaRequest cadastroCategoriaRequest;
 
     @Test
     public void deveRetornarCategoriaMaeNulo(){
-        CategoriaRequest categoriaRequest = new CategoriaRequest("Tecnologia", null);
+        CadastroCategoriaRequest cadastroCategoriaRequest = new CadastroCategoriaRequest("Tecnologia", null);
 
-        Categoria categoria = categoriaRequest.toModel();
+        Categoria categoria = cadastroCategoriaRequest.toModel();
 
         assertTrue(categoria.getCategoriaMaeOptional().isEmpty());
     }
 
     @Test
     public void naoDeveRetornarCategoriaMaeNulo(){
-        CategoriaRequest categoriaRequest = new CategoriaRequest("Tecnologia", 1l);
+        CadastroCategoriaRequest cadastroCategoriaRequest = new CadastroCategoriaRequest("Tecnologia", 1l);
 
-        Categoria categoria = categoriaRequest.toModel();
+        Categoria categoria = cadastroCategoriaRequest.toModel();
 
         assertNotEquals(null, categoria.getCategoriaMaeOptional().get());
     }
@@ -37,7 +37,7 @@ class CategoriaRequestTest {
     @Test
     @DisplayName("deveria cadastrar categoria sem mae")
     void teste1() throws Exception {
-        CategoriaRequest request = new CategoriaRequest("nome", null);
+        CadastroCategoriaRequest request = new CadastroCategoriaRequest("nome", null);
 
         EntityManager manager = Mockito.mock(EntityManager.class);
 

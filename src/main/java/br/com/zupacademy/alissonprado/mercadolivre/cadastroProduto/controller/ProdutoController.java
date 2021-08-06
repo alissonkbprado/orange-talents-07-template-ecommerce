@@ -1,6 +1,6 @@
 package br.com.zupacademy.alissonprado.mercadolivre.cadastroProduto.controller;
 
-import br.com.zupacademy.alissonprado.mercadolivre.cadastroProduto.request.ProdutoRequest;
+import br.com.zupacademy.alissonprado.mercadolivre.cadastroProduto.request.CadastroProdutoRequest;
 import br.com.zupacademy.alissonprado.mercadolivre.model.Produto;
 import br.com.zupacademy.alissonprado.mercadolivre.model.Usuario;
 import br.com.zupacademy.alissonprado.mercadolivre.repository.ProdutoRepository;
@@ -24,9 +24,9 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody @Valid ProdutoRequest produtoRequest, @AuthenticationPrincipal Usuario usuario){
+    public ResponseEntity<?> cadastrar(@RequestBody @Valid CadastroProdutoRequest cadastroProdutoRequest, @AuthenticationPrincipal Usuario usuario){
 
-        Produto produto = produtoRepository.save(produtoRequest.toModel(usuario));
+        Produto produto = produtoRepository.save(cadastroProdutoRequest.toModel(usuario));
 
         produtoRepository.save(produto);
 

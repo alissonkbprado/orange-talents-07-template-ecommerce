@@ -21,6 +21,10 @@ public class Categoria {
     @ManyToOne
     Categoria categoriaMae;
 
+    /**
+     * Não utilizar.
+     * Criado por exigencia da JPA
+     */
     @Deprecated
     public Categoria() {
     }

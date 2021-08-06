@@ -38,14 +38,20 @@ public class Usuario implements UserDetails {
     private List<Perfil> perfilList = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario")
-    private List<Produto> produtoList;
+    private List<Produto> produtoList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "usuario")
+    private List<OpiniaoProduto> opiniaoProdutoList = new ArrayList<>();
 
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired = true;
     private boolean isEnabled = true;
 
-
+    /**
+     * Não utilizar.
+     * Criado por exigencia da JPA
+     */
     @Deprecated
     public Usuario() {
     }
@@ -68,8 +74,8 @@ public class Usuario implements UserDetails {
         Assert.hasText(email, "Obrigatório envio de email ao cadastrar Usuario.");
         Assert.notNull(senha, "Campo senha não pode ser nulo");
 
-        this.email = email;
-        this.senha = senha.getSenha();
+        this.email = email.trim();
+        this.senha = senha.getSenha().trim();
     }
 
     public String getEmail() {

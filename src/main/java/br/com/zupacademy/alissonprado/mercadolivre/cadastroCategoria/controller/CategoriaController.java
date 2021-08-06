@@ -1,6 +1,6 @@
 package br.com.zupacademy.alissonprado.mercadolivre.cadastroCategoria.controller;
 
-import br.com.zupacademy.alissonprado.mercadolivre.cadastroCategoria.request.CategoriaRequest;
+import br.com.zupacademy.alissonprado.mercadolivre.cadastroCategoria.request.CadastroCategoriaRequest;
 import br.com.zupacademy.alissonprado.mercadolivre.model.Categoria;
 import br.com.zupacademy.alissonprado.mercadolivre.repository.CategoriaRepository;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
@@ -23,8 +22,8 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody @Valid CategoriaRequest categoriaRequest){
-        Categoria categoria = categoriaRequest.toModel();
+    public ResponseEntity<?> cadastrar(@RequestBody @Valid CadastroCategoriaRequest cadastroCategoriaRequest){
+        Categoria categoria = cadastroCategoriaRequest.toModel();
 
         categoriaRepository.save(categoria);
 

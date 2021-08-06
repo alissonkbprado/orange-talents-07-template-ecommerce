@@ -27,6 +27,10 @@ public class CaracteristicaProduto {
     @ManyToOne
     private GrupoCaracteristicaProduto grupoCaracteristicaProduto;
 
+    /**
+     * Não utilizar.
+     * Criado por exigencia da JPA
+     */
     @Deprecated
     public CaracteristicaProduto() {
     }

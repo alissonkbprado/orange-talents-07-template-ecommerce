@@ -57,6 +57,14 @@ public class Produto {
     @JoinColumn(name = "produto_id")
     private List<ImagemProduto> imagemProdutoList = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "produto_id")
+    private List<OpiniaoProduto> opiniaoProdutoList = new ArrayList<>();
+
+    /**
+     * Não utilizar.
+     * Criado por exigencia da JPA
+     */
     @Deprecated
     public Produto() {
     }
@@ -96,10 +104,10 @@ public class Produto {
         Assert.notNull(usuario, "Campo usuario não pode ser nulo");
         Assert.isTrue(caracteristicaProdutoHashSet.size() >= 3 , "A lista de categorias deve possuir no mínimo 3 elementos");
 
-        this.nome = nome;
+        this.nome = nome.trim();
         this.preco = preco;
         this.quantidade = quantidade;
-        this.descricao = descricao;
+        this.descricao = descricao.trim();
         this.categoria = categoria;
         this.usuario= usuario;
         this.caracteristicaProdutoHashSet.addAll(caracteristicaProdutoHashSet);
