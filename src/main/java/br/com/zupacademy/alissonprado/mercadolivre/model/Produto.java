@@ -57,9 +57,13 @@ public class Produto {
     @JoinColumn(name = "produto_id")
     private List<ImagemProduto> imagemProdutoList = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "produto_id")
     private List<OpiniaoProduto> opiniaoProdutoList = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "produto_id")
+    private List<PerguntaProduto> perguntaProdutoList = new ArrayList<>();
 
     /**
      * Não utilizar.
@@ -115,6 +119,14 @@ public class Produto {
 
     public Long getId() {
         return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
     }
 
     public List<CaracteristicaProduto> getCaracteristicaList() {

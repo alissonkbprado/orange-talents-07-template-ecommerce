@@ -5,14 +5,13 @@ import br.com.zupacademy.alissonprado.mercadolivre.model.Produto;
 import br.com.zupacademy.alissonprado.mercadolivre.model.Usuario;
 import br.com.zupacademy.alissonprado.mercadolivre.repository.ImagemProdutoRepository;
 import br.com.zupacademy.alissonprado.mercadolivre.repository.ProdutoRepository;
-import br.com.zupacademy.alissonprado.mercadolivre.service.EnviaImagemService;
+import br.com.zupacademy.alissonprado.mercadolivre.service.imagem.EnviaImagem;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -25,14 +24,14 @@ public class CadastroImagemProdutoController {
 
     ProdutoRepository produtoRepository;
 
-    EnviaImagemService enviaImagemService;
+    EnviaImagem enviaImagem;
 
     public CadastroImagemProdutoController(ImagemProdutoRepository imagemProdutoRepository,
                                            ProdutoRepository produtoRepository,
-                                           EnviaImagemService enviaImagemService) {
+                                           EnviaImagem enviaImagem) {
         this.imagemProdutoRepository = imagemProdutoRepository;
         this.produtoRepository = produtoRepository;
-        this.enviaImagemService = enviaImagemService;
+        this.enviaImagem = enviaImagem;
     }
 
     @PostMapping(value = "/api/produtos/imagens/")
@@ -50,7 +49,7 @@ public class CadastroImagemProdutoController {
          * utilizamos o id para enviar ao repositório e gerar a url de acesso a imagem.
          */
         for (MultipartFile imagem : imagensRequest.getImagens()) {
-            url = enviaImagemService.Envia(imagem);
+            url = enviaImagem.Envia(imagem);
 
             if (url.isBlank())
                 return ResponseEntity.status(HttpStatus.INSUFFICIENT_STORAGE)

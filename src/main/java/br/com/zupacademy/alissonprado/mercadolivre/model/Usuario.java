@@ -43,6 +43,9 @@ public class Usuario implements UserDetails {
     @OneToMany(mappedBy = "usuario")
     private List<OpiniaoProduto> opiniaoProdutoList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "usuario")
+    private List<PerguntaProduto> perguntaProdutoList = new ArrayList<>();
+
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired = true;

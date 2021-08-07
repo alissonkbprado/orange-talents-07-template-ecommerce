@@ -1,15 +1,14 @@
-package br.com.zupacademy.alissonprado.mercadolivre.service;
+package br.com.zupacademy.alissonprado.mercadolivre.service.imagem;
 
-import org.bouncycastle.pqc.math.linearalgebra.GF2Polynomial;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
-@Profile("dev")
+@Profile("prod")
 @Service
-public class EnviaImagemDevService implements EnviaImagemService{
+public class EnviaImagemServiceAmazon implements EnviaImagem {
 
     String nomeImagem;
     String url;
@@ -25,7 +24,7 @@ public class EnviaImagemDevService implements EnviaImagemService{
 
         hashAleatorio = geraHashAleatorio();
 
-        return "/api/produtos/imagens/" + hashAleatorio + "." + nomeImagem;
+        return "http://zupacademy.s3-website-us-east-1.amazonaws.com/categories/images/" + hashAleatorio +  "." + nomeImagem;
     }
 
     private String geraHashAleatorio(){

@@ -34,8 +34,9 @@ public class OpiniaoProdutoController {
     public ResponseEntity<?> cadastrar(@RequestBody @Valid CadastroOpiniaoProdutoRequest cadastroOpiniaoProdutoRequest,
                                        @AuthenticationPrincipal Usuario usuario){
 
-        if (produtoNaoEhDoUsuarioLogado(cadastroOpiniaoProdutoRequest.getIdProduto(), usuario.getId()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("O Produto indicado não pertence ao Usuario logado.");
+        if (produtoPercenteAoUsuarioLogado(cadastroOpiniaoProdutoRequest.getIdProduto(), usuario.getId()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("O Produto indicado pertence ao Usuario logado. " +
+                    "Não é permitido adicionar opinião ao próprio produto");
 
         OpiniaoProduto opiniaoProduto = cadastroOpiniaoProdutoRequest.toModel(usuario);
 
@@ -44,9 +45,9 @@ public class OpiniaoProdutoController {
         return ResponseEntity.status(HttpStatus.OK).body("A Opiniao foi cadastrada com sucesso.");
     }
 
-    private Boolean produtoNaoEhDoUsuarioLogado(Long idProduto, Long idUsuarioLogado) {
+    private Boolean produtoPercenteAoUsuarioLogado(Long idProduto, Long idUsuarioLogado) {
         Optional<Produto> produto = produtoRepository.findByIdAndUsuario_Id(idProduto, idUsuarioLogado);
 
-        return  produto.isEmpty();
+        return  produto.isPresent();
     }
 }

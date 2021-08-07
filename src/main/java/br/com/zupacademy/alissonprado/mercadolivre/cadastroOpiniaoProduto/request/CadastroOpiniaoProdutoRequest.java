@@ -9,7 +9,6 @@ import javax.validation.constraints.*;
 
 public class CadastroOpiniaoProdutoRequest {
 
-
     @NotNull @Min(1) @Max(5)
     private Byte nota;
 

@@ -1,4 +1,4 @@
-package br.com.zupacademy.alissonprado.mercadolivre.service;
+package br.com.zupacademy.alissonprado.mercadolivre.service.imagem;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -6,9 +6,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
-@Profile("prod")
+@Profile("dev")
 @Service
-public class EnviaImagemAmazonService implements EnviaImagemService{
+public class EnviaImagemServiceDev implements EnviaImagem {
 
     String nomeImagem;
     String url;
@@ -24,7 +24,7 @@ public class EnviaImagemAmazonService implements EnviaImagemService{
 
         hashAleatorio = geraHashAleatorio();
 
-        return "http://zupacademy.s3-website-us-east-1.amazonaws.com/categories/images/" + hashAleatorio +  "." + nomeImagem;
+        return "/api/produtos/imagens/" + hashAleatorio + "." + nomeImagem;
     }
 
     private String geraHashAleatorio(){

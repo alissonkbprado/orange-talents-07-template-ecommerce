@@ -1,4 +1,4 @@
-package br.com.zupacademy.alissonprado.mercadolivre.service;
+package br.com.zupacademy.alissonprado.mercadolivre.service.imagem;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -7,6 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
  * Envia imagem para servidor e retorna url
  */
 @Service
-public interface EnviaImagemService {
+public interface EnviaImagem {
     public String Envia(MultipartFile imagem);
 }
