@@ -65,4 +65,16 @@ public class OpiniaoProduto {
         this.produto = produto;
         this.usuario = usuario;
     }
+
+    public Byte getNota() {
+        return nota;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
 }

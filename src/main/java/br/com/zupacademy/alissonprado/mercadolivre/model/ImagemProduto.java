@@ -21,11 +21,15 @@ public class ImagemProduto {
     @ManyToOne
     private Produto produto;
 
+
     /**
      * Não utilizar.
      * Criado por exigencia da JPA
      */
     @Deprecated
+    public ImagemProduto() {
+    }
+
     public ImagemProduto(Long id) {
         this.id = id;
     }
@@ -46,5 +50,13 @@ public class ImagemProduto {
 
     public Long getId() {
         return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

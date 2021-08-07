@@ -46,6 +46,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/categorias").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/produtos/{*}").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/auth").permitAll()
                 .anyRequest().authenticated() // Qualquer outra requisição deverá ser autenticadas
                 .and().csrf().disable() //desabilitar verificação de segurança desnecessária em autenticações sem sessão

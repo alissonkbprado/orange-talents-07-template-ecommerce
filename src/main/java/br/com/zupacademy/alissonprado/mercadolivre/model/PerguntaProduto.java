@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @Entity
 public class PerguntaProduto {
@@ -56,5 +57,22 @@ public class PerguntaProduto {
         this.pergunta = pergunta.trim();
         this.usuario = usuario;
         this.produto = produto;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getPergunta() {
+        return pergunta;
+    }
+
+    public LocalDateTime getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public String getNomeUsuario() {
+        String[] email = usuario.getEmail().split("@");
+        return email[0];
     }
 }

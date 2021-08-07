@@ -1,6 +1,6 @@
 package br.com.zupacademy.alissonprado.mercadolivre.model;
 
-import br.com.zupacademy.alissonprado.mercadolivre.cadastroProduto.request.CaracteristicaRequest;
+import br.com.zupacademy.alissonprado.mercadolivre.features.produto.cadastroProduto.request.CaracteristicaRequest;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -72,5 +72,13 @@ public class CaracteristicaProduto {
         this.nome = caracteristicaRequest.getNome();
         this.descricao = caracteristicaRequest.getDescricao();
         this.grupoCaracteristicaProduto = new GrupoCaracteristicaProduto(caracteristicaRequest.getIdGrupoCaracteristica());
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
     }
 }

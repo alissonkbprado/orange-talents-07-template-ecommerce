@@ -1,6 +1,6 @@
 package br.com.zupacademy.alissonprado.mercadolivre.model;
 
-import br.com.zupacademy.alissonprado.mercadolivre.cadastroUsuario.Senha;
+import br.com.zupacademy.alissonprado.mercadolivre.features.usuario.cadastroUsuario.Senha;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -9,11 +9,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -57,11 +55,11 @@ public class Produto {
     @JoinColumn(name = "produto_id")
     private List<ImagemProduto> imagemProdutoList = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany
     @JoinColumn(name = "produto_id")
     private List<OpiniaoProduto> opiniaoProdutoList = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany
     @JoinColumn(name = "produto_id")
     private List<PerguntaProduto> perguntaProdutoList = new ArrayList<>();
 
@@ -125,11 +123,44 @@ public class Produto {
         return nome;
     }
 
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
 
     public List<CaracteristicaProduto> getCaracteristicaList() {
         return caracteristicaProdutoHashSet.stream().collect(Collectors.toList());
+    }
+
+    public Set<CaracteristicaProduto> getCaracteristicaProdutoHashSet() {
+        return caracteristicaProdutoHashSet;
+    }
+
+    public List<OpiniaoProduto> getOpiniaoProdutoList() {
+        return opiniaoProdutoList;
+    }
+
+    public List<PerguntaProduto> getPerguntaProdutoList() {
+        return perguntaProdutoList;
+    }
+
+    public List<ImagemProduto> getImagemProdutoList() {
+        return imagemProdutoList;
+    }
+
+    // COMO TESTAR
+    public Double getMediaNotas(){
+        return this.opiniaoProdutoList
+                .stream()
+                .mapToDouble(OpiniaoProduto::getNota)
+                .average()
+                .orElse(0.0);
     }
 }

@@ -1,6 +1,6 @@
 package br.com.zupacademy.alissonprado.mercadolivre.validacao;
 
-import br.com.zupacademy.alissonprado.mercadolivre.cadastroProduto.request.CaracteristicaRequest;
+import br.com.zupacademy.alissonprado.mercadolivre.features.produto.cadastroProduto.request.CaracteristicaRequest;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
