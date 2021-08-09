@@ -1,7 +1,6 @@
 package br.com.zupacademy.alissonprado.mercadolivre.features.produto.detalharProduto.response;
 
 import br.com.zupacademy.alissonprado.mercadolivre.model.Produto;
-import org.springframework.format.annotation.NumberFormat;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,7 +12,6 @@ public class DetalhesProdutoResponse {
     private String nome;
     private BigDecimal preco;
     private String descricao;
-    @NumberFormat(pattern = "###.##")
     private Double mediaNotas;
     private Integer totalNotas;
     private Set<CaracteristicaProdutoResponse> caracteristicas;
@@ -26,7 +24,7 @@ public class DetalhesProdutoResponse {
         this.preco = produto.getPreco();
         this.descricao = produto.getDescricao();
         this.mediaNotas = produto.getMediaNotas();
-        this.totalNotas = produto.getOpiniaoProdutoList().size();
+        this.totalNotas = produto.getQuantidadeTotalOpinioes();
         this.caracteristicas = produto.getCaracteristicaProdutoHashSet().stream().map(CaracteristicaProdutoResponse::new).collect(Collectors.toSet());
         this.opinioes = produto.getOpiniaoProdutoList().stream().map(OpiniaoProdutoResponse::new).collect(Collectors.toList());
         this.perguntas = produto.getPerguntaProdutoList().stream().map(PerguntaProdutoResponse::new).collect(Collectors.toList());

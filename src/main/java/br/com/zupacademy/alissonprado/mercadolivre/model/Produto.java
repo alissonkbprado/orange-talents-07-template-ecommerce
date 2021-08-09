@@ -4,10 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
@@ -28,7 +25,7 @@ public class Produto {
     @Column(nullable = false)
     private BigDecimal preco;
 
-    @NotNull @Positive
+    @NotNull @PositiveOrZero
     @Column(nullable = false)
     private Integer quantidade;
 
@@ -62,6 +59,9 @@ public class Produto {
     @OneToMany
     @JoinColumn(name = "produto_id")
     private List<PerguntaProduto> perguntaProdutoList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "produto")
+    private List<Compra> compraList = new ArrayList<>();
 
     /**
      * Não utilizar.
@@ -99,8 +99,8 @@ public class Produto {
         Assert.hasText(nome, "Campo nome deve ser preenchido");
         Assert.notNull(preco, "Campo preço deve ser preenchido");
         Assert.isTrue((preco.signum() > 0), "Campo preço deve ser maior que zero");
-        Assert.notNull(quantidade, "Campo preço deve ser preenchido");
-        Assert.isTrue((quantidade >= 0.0), "Campo preço deve ser maior que ou igual a zero");
+        Assert.notNull(quantidade, "Campo Quantidade deve ser preenchido");
+        Assert.isTrue((quantidade >= 0.0), "Quantidade preço deve ser maior que ou igual a zero");
         Assert.hasText(descricao, "Campo descricao deve ser preenchido");
         Assert.notNull(categoria, "Campo categoria não pode ser nulo");
         Assert.notNull(usuario, "Campo usuario não pode ser nulo");
@@ -162,5 +162,20 @@ public class Produto {
                 .mapToDouble(OpiniaoProduto::getNota)
                 .average()
                 .orElse(0.0);
+    }
+
+    public Integer getQuantidadeTotalOpinioes() {
+        return this.opiniaoProdutoList.size();
+    }
+
+
+    public Boolean abateEstoque(Integer quantidade) {
+        Assert.isTrue(quantidade > 0, "A quantidade para abater em estoque deve ser maior que zero.");
+
+        if(this.quantidade < quantidade)
+            return false;
+
+        this.quantidade -= quantidade;
+        return true;
     }
 }
