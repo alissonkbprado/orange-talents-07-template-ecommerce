@@ -7,14 +7,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class EnviaEmailServiceProd implements EnviaMensagem{
 
+    EmailClient emailClient;
+
+    public EnviaEmailServiceProd(EmailClient emailClient) {
+        this.emailClient = emailClient;
+    }
+
     @Override
     public void envia(String remetente, String destinatario, String titulo, String mensagem) {
-
         System.out.println("Inicio Envio de Email");
-        System.out.println("De: " + remetente);
-        System.out.println("Para: " + destinatario);
-        System.out.println("Assunto: " + titulo);
-        System.out.println("Mensagem: " + mensagem);
+
+        EmailTemplate emailTemplate = new EmailTemplate(remetente, destinatario, titulo, mensagem);
+
+        emailClient.envia(emailTemplate);
+
         System.out.println("Email enviado com sucesso!");
     }
 }

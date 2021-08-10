@@ -10,7 +10,7 @@ public class EnviaEmailServiceDev implements EnviaMensagem{
     @Override
     public void envia(String remetente, String destinatario, String titulo, String mensagem) {
 
-        System.out.println("### Simulando Envio de email ###");
+        System.out.println("###### Simulando Envio de email ######");
 
         System.out.println("Inicio Envio de Email");
         System.out.println("De: " + remetente);

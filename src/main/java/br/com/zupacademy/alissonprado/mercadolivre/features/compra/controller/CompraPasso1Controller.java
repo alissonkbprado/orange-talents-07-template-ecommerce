@@ -6,14 +6,12 @@ import br.com.zupacademy.alissonprado.mercadolivre.model.Produto;
 import br.com.zupacademy.alissonprado.mercadolivre.model.Usuario;
 import br.com.zupacademy.alissonprado.mercadolivre.repository.CompraRepository;
 import br.com.zupacademy.alissonprado.mercadolivre.repository.ProdutoRepository;
-import br.com.zupacademy.alissonprado.mercadolivre.service.formaPagamento.ProcessaPagamento;
+import br.com.zupacademy.alissonprado.mercadolivre.service.pagamento.urlPagamento.ProcessaUrlPagamento;
 import br.com.zupacademy.alissonprado.mercadolivre.service.mensagem.EnviaMensagem;
 import br.com.zupacademy.alissonprado.mercadolivre.validacao.ValidaQuantidadeProdutoEmEstoqueValidator;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.validation.BindException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,7 +20,6 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -32,18 +29,18 @@ public class CompraPasso1Controller {
     private ProdutoRepository produtoRepository;
     private ValidaQuantidadeProdutoEmEstoqueValidator validaQuantidadeProdutoEmEstoqueValidator;
     private EnviaMensagem enviaMensagem;
-    private ProcessaPagamento processaPagamento;
+    private ProcessaUrlPagamento processaUrlPagamento;
 
     public CompraPasso1Controller(CompraRepository compraRepository,
                                   ProdutoRepository produtoRepository,
                                   ValidaQuantidadeProdutoEmEstoqueValidator validaQuantidadeProdutoEmEstoqueValidator,
                                   EnviaMensagem enviaMensagem,
-                                  ProcessaPagamento processaPagamento) {
+                                  ProcessaUrlPagamento processaUrlPagamento) {
         this.compraRepository = compraRepository;
         this.produtoRepository = produtoRepository;
         this.validaQuantidadeProdutoEmEstoqueValidator = validaQuantidadeProdutoEmEstoqueValidator;
         this.enviaMensagem = enviaMensagem;
-        this.processaPagamento = processaPagamento;
+        this.processaUrlPagamento = processaUrlPagamento;
     }
 
     @InitBinder
@@ -53,9 +50,9 @@ public class CompraPasso1Controller {
 
     @PostMapping("/api/produtos/compraPasso1")
     @Transactional
-    public ResponseEntity<?> passo1(@RequestBody @Valid CompraPasso1Request request,
-                                    @AuthenticationPrincipal Usuario comprador,
-                                    UriComponentsBuilder uriBuilder){
+    public ResponseEntity<?> compraPasso1(@RequestBody @Valid CompraPasso1Request request,
+                                          @AuthenticationPrincipal Usuario comprador,
+                                          UriComponentsBuilder uriBuilder){
 
         if (produtoPercenteAoUsuarioLogado(request.getIdProduto(), comprador.getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(geraMapErro("idProduto",
@@ -69,7 +66,7 @@ public class CompraPasso1Controller {
 
         compraRepository.save(compra);
         enviaEmail(compra);
-        String url = processaPagamento.processa(compra);
+        String url = processaUrlPagamento.processa(compra);
         URI uri = UriComponentsBuilder.newInstance().scheme("http").host(url).build().toUri();
         return ResponseEntity
                 .status(HttpStatus.FOUND)

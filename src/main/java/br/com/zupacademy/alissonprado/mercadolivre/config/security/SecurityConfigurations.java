@@ -47,6 +47,10 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/categorias").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/produtos/{*}").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/produtos/compraPasso2/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/produtos/compraPasso2/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/notas-fiscais").permitAll()
+                .antMatchers(HttpMethod.POST, "/ranking").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/auth").permitAll()
                 .anyRequest().authenticated() // Qualquer outra requisição deverá ser autenticadas
                 .and().csrf().disable() //desabilitar verificação de segurança desnecessária em autenticações sem sessão

@@ -2,6 +2,9 @@ package br.com.zupacademy.alissonprado.mercadolivre.model;
 
 import br.com.zupacademy.alissonprado.mercadolivre.features.FormaPagamento;
 import br.com.zupacademy.alissonprado.mercadolivre.features.StatusPagamento;
+import br.com.zupacademy.alissonprado.mercadolivre.features.StatusTransacaoPagamento;
+import br.com.zupacademy.alissonprado.mercadolivre.repository.CategoriaRepository;
+import br.com.zupacademy.alissonprado.mercadolivre.repository.CompraRepository;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.util.Assert;
 
@@ -11,6 +14,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -39,7 +44,7 @@ public class Compra {
     private BigDecimal preco;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String chaveUUID;
 
     @ManyToOne
@@ -47,6 +52,13 @@ public class Compra {
 
     @ManyToOne
     Usuario comprador;
+
+    @OneToMany(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "compra_id")
+    List<TransacaoPagamento> transacaoPagamentoList = new ArrayList<>();
+
+    private Compra() {
+    }
 
     /**
      *
@@ -89,6 +101,14 @@ public class Compra {
         return formaPagamento;
     }
 
+    public StatusPagamento getStatusPagamento() {
+        return statusPagamento;
+    }
+
+    public Usuario getComprador() {
+        return comprador;
+    }
+
     public String getChaveUUID() {
         return chaveUUID;
     }
@@ -102,5 +122,16 @@ public class Compra {
         UUID uuid = UUID.randomUUID();
         String myRandom = uuid.toString();
         return myRandom.substring(0,10);
+    }
+
+    public Boolean novoPagamento(TransacaoPagamento transacaoPagamento, CompraRepository compraRepository) {
+        this.transacaoPagamentoList.add(transacaoPagamento);
+
+        if (transacaoPagamento.getStatusTransacaoPagamento() == StatusTransacaoPagamento.SUCESSO) {
+            this.statusPagamento = StatusPagamento.FINALIZADA;
+            return true;
+        }
+
+        return false;
     }
 }
