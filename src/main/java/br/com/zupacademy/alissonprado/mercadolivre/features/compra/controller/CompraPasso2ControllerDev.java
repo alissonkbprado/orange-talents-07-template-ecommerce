@@ -5,7 +5,6 @@ import br.com.zupacademy.alissonprado.mercadolivre.model.Compra;
 import br.com.zupacademy.alissonprado.mercadolivre.model.TransacaoPagamento;
 import br.com.zupacademy.alissonprado.mercadolivre.repository.CompraRepository;
 import br.com.zupacademy.alissonprado.mercadolivre.service.pagamento.novaCompra.EventosNovaCompra;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,7 @@ import java.util.HashMap;
 import java.util.Optional;
 
 @RestController
-@Profile("dev")
+//@Profile("dev")
 public class CompraPasso2ControllerDev {
 
     private CompraRepository compraRepository;
@@ -47,9 +46,10 @@ public class CompraPasso2ControllerDev {
 
         if (optionalCompra.get().getStatusPagamento().toString() != "INICIADA")
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(geraMapErro("Status Compra",
-                    "Esta optionalCompra está registrada com o Status " + optionalCompra.get().getStatusPagamento() + " e não pode prosseguir."));
+                    "Esta Compra está registrada com o Status " + optionalCompra.get().getStatusPagamento() + " e não pode prosseguir."));
 
         Compra compra = optionalCompra.get();
+
         TransacaoPagamento transacaoPagamento = request.toModel(optionalCompra.get());
 
         Boolean processado = compra.novoPagamento(transacaoPagamento, compraRepository);

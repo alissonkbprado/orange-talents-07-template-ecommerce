@@ -1,11 +1,13 @@
 package br.com.zupacademy.alissonprado.mercadolivre.service.imagem;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
+@Primary
 @Profile("dev")
 @Service
 public class EnviaImagemServiceDev implements EnviaImagem {

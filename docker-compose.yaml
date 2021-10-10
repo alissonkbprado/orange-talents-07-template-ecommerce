@@ -1,0 +1,48 @@
+version: '3.1'
+services:
+  db:
+    image: mysql
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: mercado_livre
+      MYSQL_ROOT_PASSWORD: Zup123456
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "3306:3306"
+    networks:
+      - production-network
+    volumes:
+      - mercado-livre:/var/lib/mysql
+
+  mercado-livre:
+    build:
+      dockerfile: dockerfile
+      context: .
+    image: alissonprado/mercado-livre
+    container_name: mercado-livre
+    ports:
+      - "8080:8080"
+    networks:
+      - production-network
+    depends_on:
+      - mysql
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+#      - /etc/prometheus/
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+#    command:
+#      - "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - "9090:9090"
+    networks:
+      - production-network
+
+volumes:
+  mercado-livre:
+
+networks:
+  production-network:
+    driver: bridge

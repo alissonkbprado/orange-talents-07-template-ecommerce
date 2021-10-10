@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -33,6 +35,7 @@ public class ErroDeValidacaoHandler {
 
         return buildValidationErrors(fieldErrors, responseList);
     }
+
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
     public List<ErroDeFormularioResponse> handle(BindException exception){
@@ -69,6 +72,16 @@ public class ErroDeValidacaoHandler {
         String mensagem = "Uma ou mais imagens excede o tamanho máximo permitido de 500KB, ou o máximo permitido para todas as imagens de 5120KB. " + exception.getLocalizedMessage();
 
         return new ErroDeFormularioResponse("imagens", mensagem);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<String> interceptaBeanValidation(HttpMessageNotReadableException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Corpo da requisição inválido.");
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> interceptaBeanValidation(IllegalArgumentException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
     private List<ErroDeFormularioResponse> buildValidationErrors(List<FieldError> fieldErrors, List<ErroDeFormularioResponse> responseList) {

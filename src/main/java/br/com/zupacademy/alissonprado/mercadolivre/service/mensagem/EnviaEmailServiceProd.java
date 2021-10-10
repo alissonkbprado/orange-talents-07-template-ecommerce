@@ -1,17 +1,19 @@
 package br.com.zupacademy.alissonprado.mercadolivre.service.mensagem;
 
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-@Profile("prod")
+//@Profile("prod")
+@Primary
 @Service
-public class EnviaEmailServiceProd implements EnviaMensagem{
+public class EnviaEmailServiceProd implements EnviaMensagem {
 
-    EmailClient emailClient;
 
-    public EnviaEmailServiceProd(EmailClient emailClient) {
-        this.emailClient = emailClient;
-    }
+//    private EmailClient emailClient;
+//
+//    public EnviaEmailServiceProd(EmailClient emailClient) {
+//        this.emailClient = emailClient;
+//    }
 
     @Override
     public void envia(String remetente, String destinatario, String titulo, String mensagem) {
@@ -19,7 +21,7 @@ public class EnviaEmailServiceProd implements EnviaMensagem{
 
         EmailTemplate emailTemplate = new EmailTemplate(remetente, destinatario, titulo, mensagem);
 
-        emailClient.envia(emailTemplate);
+//        emailClient.envia(emailTemplate);
 
         System.out.println("Email enviado com sucesso!");
     }

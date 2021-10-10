@@ -4,7 +4,7 @@ import br.com.zupacademy.alissonprado.mercadolivre.model.Compra;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-@Profile("prod")
+//@Profile("prod")
 @Service
 public class processaUrlPagamentoProd implements ProcessaUrlPagamento {
     @Override

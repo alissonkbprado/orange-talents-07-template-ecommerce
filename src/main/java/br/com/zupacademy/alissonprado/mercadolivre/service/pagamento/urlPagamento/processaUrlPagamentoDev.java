@@ -1,9 +1,11 @@
 package br.com.zupacademy.alissonprado.mercadolivre.service.pagamento.urlPagamento;
 
 import br.com.zupacademy.alissonprado.mercadolivre.model.Compra;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+@Primary
 @Profile("dev")
 @Service
 public class processaUrlPagamentoDev implements ProcessaUrlPagamento {

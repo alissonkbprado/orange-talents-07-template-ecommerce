@@ -1,7 +1,5 @@
 package br.com.zupacademy.alissonprado.mercadolivre.features;
 
-import java.math.BigDecimal;
-
 public enum FormaPagamento {
 
     PAYPAL {

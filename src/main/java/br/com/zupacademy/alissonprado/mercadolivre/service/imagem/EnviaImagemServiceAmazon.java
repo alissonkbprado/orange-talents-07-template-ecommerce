@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
-@Profile("prod")
+//@Profile("prod")
 @Service
 public class EnviaImagemServiceAmazon implements EnviaImagem {
 
